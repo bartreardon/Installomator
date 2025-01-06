@@ -34,6 +34,15 @@ jobs:
       run: |
         chmod +x utils/assemble.sh
         ./utils/assemble.sh --script
+        echo "assemble_script_status=$?" >> $GITHUB_ENV  # Save exit status in env variable
+
+    # Validate
+    - name: Validate assemble.sh execution
+      run: |
+        if [ "${{ env.assemble_script_status }}" -ne 0 ]; then
+          echo "Error: assemble.sh failed with exit code ${env.assemble_script_status}"
+          exit 1
+        fi
 
     # Commit and push changes (if any)
     - name: Commit and push changes
