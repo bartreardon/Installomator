@@ -1,0 +1,28 @@
+name: Assemble Labels (Manual)
+
+on: [workflow_dispatch]
+
+jobs:
+  build-and-compile:
+    runs-on: macos-latest
+
+    steps:
+    # Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Run the assemble.sh script
+    - name: Compile data using assemble.sh
+      run: |
+        chmod +x utils/assemble.sh  # Ensure the script is executable
+        ./utils/assemble.sh          # Execute the script
+
+    # Commit and push changes (if any)
+    - name: Commit and push changes
+      uses: stefanzweifel/git-auto-commit-action@v4
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      with:
+        commit_message: "Compiled Installomator.sh using assemble.sh"
+        add: "Installomator.sh"
+
+# Note: Ensure you have a git user configured in your repository or provide credentials in the `git-auto-commit-action` step if pushing back.
