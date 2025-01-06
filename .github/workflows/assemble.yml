@@ -6,16 +6,26 @@ jobs:
   build-and-compile:
     runs-on: macos-latest
 
+    env:
+      GIT_USERNAME: "bartreardon"
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
     # Checkout the repository
     - name: Checkout code
       uses: actions/checkout@v2
 
+    # Configure git user
+    - name: Set up git user
+      run: |
+        git config --global user.name "${GIT_USERNAME}"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
     # Run the assemble.sh script
     - name: Compile data using assemble.sh
       run: |
-        chmod +x utils/assemble.sh  # Ensure the script is executable
-        ./utils/assemble.sh          # Execute the script
+        chmod +x utils/assemble.sh
+        ./utils/assemble.sh --script
 
     # Commit and push changes (if any)
     - name: Commit and push changes
