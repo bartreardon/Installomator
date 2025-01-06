@@ -15,11 +15,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    # Configure git user
-    - name: Set up git user
+    # Configure git
+    - name: Set up git
       run: |
         git config --global user.name "${GIT_USERNAME}"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global init.defaultBranch main
 
     # Run the assemble.sh script
     - name: Compile data using assemble.sh
@@ -30,9 +31,8 @@ jobs:
     # Commit and push changes (if any)
     - name: Commit and push changes
       uses: stefanzweifel/git-auto-commit-action@v4
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       with:
-        commit_message: "Compiled Installomator.sh using assemble.sh"
+        commit_message: "Runner compiled Installomator.sh using assemble.sh"
         add: "Installomator.sh"
 
-# Note: Ensure you have a git user configured in your repository or provide credentials in the `git-auto-commit-action` step if pushing back.
+
