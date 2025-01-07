@@ -1,4 +1,4 @@
-1password7
+1password7test
 1password8
 1passwordcli
 4kvideodownloader
