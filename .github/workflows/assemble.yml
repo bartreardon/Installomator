@@ -32,8 +32,8 @@ jobs:
     # Run the assemble.sh script
     - name: Compile data using assemble.sh
       run: |
-        chmod +x utils/assemble.sh
-        ./utils/assemble.sh --script
+        chmod +x ./assemble.sh
+        .assemble.sh --script
         echo "assemble_script_status=$?" >> $GITHUB_ENV  # Save exit status in env variable
 
     # Validate
