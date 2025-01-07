@@ -1,4 +1,4 @@
-1password7)
+1password7test)
     name="1Password 7"
     type="pkg"
     downloadURL="https://app-updates.agilebits.com/download/OPM7"
